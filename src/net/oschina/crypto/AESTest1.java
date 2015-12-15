@@ -1,19 +1,18 @@
 package net.oschina.crypto;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
 public class AESTest1 {
 	public static void main(String[] args) throws Exception {
 		String string = "ZDC524";
 		byte[] bs = string.getBytes();
-		System.err.println("Ô­ÎÄ" + string);
+		System.err.println("æ˜æ–‡" + string);
 		byte[] bs2 = AESCoder.initKey();
-		System.err.println("ÃÜÂë" + Base64.getEncoder().encodeToString(bs2));
+		System.err.println("å¯†ç " + Base64.getEncoder().encodeToString(bs2));
 		bs = AESCoder.encypt(bs, bs2);
-		System.err.println("¼ÓÃÜºó" + Base64.getEncoder().encodeToString(bs));
+		System.err.println("åŠ å¯†å" + Base64.getEncoder().encodeToString(bs));
 		byte[] bs3 = AESCoder.decypt(bs, bs2);
 		String string2 = new String(bs3);
-		System.err.println("½âÃÜºó" + string2);
+		System.err.println("è§£å¯†å" + string2);
 	}
 }
