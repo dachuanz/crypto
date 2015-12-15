@@ -12,7 +12,9 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-
+/**
+ * åˆæ­¥å®ç°çš„åŠ å¯†æ‰€å‘ï¼Œå¤‡ç”¨
+ * */
 public class Test {
 	public static byte[] encrypt(String content, String password) {
 		try {
@@ -21,11 +23,11 @@ public class Test {
 			SecretKey secretKey = kgen.generateKey();
 			byte[] enCodeFormat = secretKey.getEncoded();
 			SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");
-			Cipher cipher = Cipher.getInstance("AES");// ´´½¨ÃÜÂëÆ÷
+			Cipher cipher = Cipher.getInstance("AES");// Â´Â´Â½Â¨ÃƒÃœÃ‚Ã«Ã†Ã·
 			byte[] byteContent = content.getBytes("utf-8");
-			cipher.init(Cipher.ENCRYPT_MODE, key);// ³õÊ¼»¯
+			cipher.init(Cipher.ENCRYPT_MODE, key);// Â³ÃµÃŠÂ¼Â»Â¯
 			byte[] result = cipher.doFinal(byteContent);
-			return result; // ¼ÓÃÜ
+			return result; // Â¼Ã“ÃƒÃœ
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		} catch (NoSuchPaddingException e) {
