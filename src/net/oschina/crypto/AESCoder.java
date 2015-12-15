@@ -7,7 +7,7 @@ package net.oschina.crypto;
  */
 public abstract class AESCoder {
 	/**
-	 * Ëã·¨¶¨Òå
+	 * ç®—æ³•å®šä¹‰
 	 */
 	public static final String KEY_ALGORITHM = "AES";
 
