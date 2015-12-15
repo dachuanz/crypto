@@ -23,11 +23,11 @@ public class Test {
 			SecretKey secretKey = kgen.generateKey();
 			byte[] enCodeFormat = secretKey.getEncoded();
 			SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");
-			Cipher cipher = Cipher.getInstance("AES");// ´´½¨ÃÜÂëÆ÷
+			Cipher cipher = Cipher.getInstance("AES");// 设置加密方法
 			byte[] byteContent = content.getBytes("utf-8");
-			cipher.init(Cipher.ENCRYPT_MODE, key);// ³õÊ¼»¯
+			cipher.init(Cipher.ENCRYPT_MODE, key);// 
 			byte[] result = cipher.doFinal(byteContent);
-			return result; // ¼ÓÃÜ
+			return result; // 
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		} catch (NoSuchPaddingException e) {
