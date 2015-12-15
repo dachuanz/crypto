@@ -8,6 +8,9 @@ public class AESTest1 {
 		byte[] bs = string.getBytes();
 		System.err.println("明文" + string);
 		byte[] bs2 = AESCoder.initKey();
+		/**
+		 * 使用java 8自带base64算法
+		 */
 		System.err.println("密码" + Base64.getEncoder().encodeToString(bs2));
 		bs = AESCoder.encypt(bs, bs2);
 		System.err.println("加密后" + Base64.getEncoder().encodeToString(bs));
