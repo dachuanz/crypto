@@ -23,7 +23,7 @@ public class BlowfishCoder {
 	}
 
 	/**
-	 * 加密
+	 * 
 	 * 
 	 * @param data
 	 * @param key
@@ -50,7 +50,8 @@ public class BlowfishCoder {
 	}
 
 	/**
-	 * 解密
+	 * 瀵圭О绠楁硶
+	 * 瑙ｅ瘑
 	 * 
 	 * @param data
 	 * @param key
@@ -65,7 +66,7 @@ public class BlowfishCoder {
 	}
 
 	/**
-	 * 算法定义
+	 * 
 	 */
 	public static final String KEY_ALGORITHM = "Blowfish";
 
