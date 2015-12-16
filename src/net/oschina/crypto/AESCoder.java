@@ -10,11 +10,15 @@ import javax.crypto.spec.SecretKeySpec;
 
 /**
  * 
- * @author zdc52
- *
+ * @author 张大川
+ * @version 1.0
  */
 public abstract class AESCoder {
-
+	/**
+	 * 
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 */
 	public static byte[] initKey() throws NoSuchAlgorithmException {
 		KeyGenerator kg = KeyGenerator.getInstance(KEY_ALGORITHM);
 		kg.init(256);
@@ -22,23 +26,36 @@ public abstract class AESCoder {
 		return secretKey.getEncoded();
 
 	}
-	
-	public static byte [] encypt (byte[] data, byte[] key) throws Exception
-	{
+
+	/**
+	 * 加密
+	 * 
+	 * @param data
+	 * @param key
+	 * @return
+	 * @throws Exception
+	 */
+	public static byte[] encypt(byte[] data, byte[] key) throws Exception {
 		Key key2 = toKey(key);
 		Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
 		cipher.init(Cipher.ENCRYPT_MODE, key2);
 		return cipher.doFinal(data);
-		
-		
+
 	}
 
+	/**
+	 * 
+	 * @param key
+	 * @return
+	 * @throws Exception
+	 */
 	private static Key toKey(byte[] key) throws Exception {
 		SecretKey secretKey = new SecretKeySpec(key, KEY_ALGORITHM);
 		return secretKey;
 	}
 
 	/**
+	 * 解密
 	 * 
 	 * @param data
 	 * @param key
