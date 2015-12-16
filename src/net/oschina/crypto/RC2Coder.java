@@ -23,7 +23,7 @@ public abstract class   RC2Coder {
 	}
 
 	/**
-	 * 加密
+	 * 
 	 * 
 	 * @param data
 	 * @param key
@@ -50,7 +50,7 @@ public abstract class   RC2Coder {
 	}
 
 	/**
-	 * 解密
+	 * 
 	 * 
 	 * @param data
 	 * @param key
@@ -65,7 +65,7 @@ public abstract class   RC2Coder {
 	}
 
 	/**
-	 * 算法定义
+	 * 
 	 */
 	public static final String KEY_ALGORITHM = "RC2";
 
