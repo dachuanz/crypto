@@ -7,7 +7,9 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-
+/**
+ *  blowfish 算法
+ * /
 public class BlowfishCoder {
 	/**
 	 * 
@@ -23,7 +25,7 @@ public class BlowfishCoder {
 	}
 
 	/**
-	 * 
+	 * 加密
 	 * 
 	 * @param data
 	 * @param key
