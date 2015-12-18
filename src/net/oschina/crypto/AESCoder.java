@@ -21,7 +21,7 @@ public abstract class AESCoder {
 	 */
 	public static byte[] initKey() throws NoSuchAlgorithmException {
 		KeyGenerator kg = KeyGenerator.getInstance(KEY_ALGORITHM);
-		kg.init(256);
+		kg.init(256);// 可以为 128 192 256
 		SecretKey secretKey = kg.generateKey();
 		return secretKey.getEncoded();
 
