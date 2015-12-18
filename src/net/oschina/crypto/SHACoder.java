@@ -26,11 +26,34 @@ public abstract class SHACoder {
 
 	/**
 	 * SHA-1 生成20个字节的摘要
+	 * 
 	 * @param string
 	 * @return
 	 */
-	public static byte[] encodeSHA1(String string) {
-		return DigestUtils.sha1(string);
+	public static byte[] encodeSHA1(String data) {
+		return DigestUtils.sha1(data);
 
 	}
+
+	/**
+	 * SHA-256 生成32个字节的摘要
+	 * 
+	 * @param string
+	 * @return
+	 */
+	public static byte[] encodeSHA256(String data) {
+		return DigestUtils.sha256(data);
+
+	}
+	
+	/**
+	 * MD5生成16个字节的摘要
+	 * @param string
+	 * @return
+	 */
+	public static byte[] encodeMD5(String data)
+	{
+		return DigestUtils.md5(data);
+	}
+
 }
