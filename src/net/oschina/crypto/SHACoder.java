@@ -55,5 +55,14 @@ public abstract class SHACoder {
 	{
 		return DigestUtils.md5(data);
 	}
-
+	/**
+	 * SHA-384生成48个字节的摘要
+	 * @param data
+	 * @return
+	 */
+	public static byte[] encodeSHA384(String data)
+	{
+		return DigestUtils.sha384(data);
+	}
+	
 }
