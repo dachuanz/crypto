@@ -15,7 +15,9 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.PBEParameterSpec;
-
+/**
+* 
+*/
 public abstract class PBECoder {
 	public static final String ALGORITHM = "PBEWITHMD5andDES";
 	public static final int ITERATION_COUNT = 100;
