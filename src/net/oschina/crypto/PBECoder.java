@@ -20,6 +20,13 @@ public abstract class PBECoder {
 	public static final String ALGORITHM = "PBEWITHMD5andDES";
 	public static final int ITERATION_COUNT = 100;
 
+	/**
+	 * 生成实际加密KEY
+	 * @param password
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 * @throws InvalidKeySpecException
+	 */
 	private static Key toKey(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
 		PBEKeySpec keySpec = new PBEKeySpec(password.toCharArray());
 
@@ -29,12 +36,31 @@ public abstract class PBECoder {
 		return key;
 	}
 
+	/**
+	 * 生成盐
+	 * 
+	 * @return
+	 */
 	public static byte[] initSalt() {
 		SecureRandom random = new SecureRandom();
 
 		return random.generateSeed(8);
 	}
 
+	/**
+	 * 
+	 * @param data
+	 * @param salt
+	 * @param password
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 * @throws InvalidKeySpecException
+	 * @throws NoSuchPaddingException
+	 * @throws InvalidKeyException
+	 * @throws InvalidAlgorithmParameterException
+	 * @throws IllegalBlockSizeException
+	 * @throws BadPaddingException
+	 */
 	public static byte[] encypt(byte[] data, byte[] salt, String password)
 			throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidKeyException,
 			InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
