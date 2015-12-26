@@ -26,7 +26,7 @@ public class BlowfishCoder {
 
 	/**
 	 * 加密
-	 * 
+	 * 对称算法
 	 * @param data
 	 * @param key
 	 * @return
