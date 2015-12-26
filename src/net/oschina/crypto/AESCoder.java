@@ -15,7 +15,7 @@ import javax.crypto.spec.SecretKeySpec;
  */
 public abstract class AESCoder {
 	/**
-	 * 
+	 * 生成安全秘钥，避免弱秘钥问题
 	 * @return
 	 * @throws NoSuchAlgorithmException
 	 */
