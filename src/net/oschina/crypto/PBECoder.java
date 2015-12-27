@@ -16,14 +16,16 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.PBEParameterSpec;
 /**
-* 
-*/
+ * 
+ * @author zdc52
+ *
+ */
 public abstract class PBECoder {
 	public static final String ALGORITHM = "PBEWITHMD5andDES";
 	public static final int ITERATION_COUNT = 100;
 
 	/**
-	 * KEY
+	 * 
 	 * @param password
 	 * @return
 	 * @throws NoSuchAlgorithmException
@@ -50,7 +52,7 @@ public abstract class PBECoder {
 	}
 
 	/**
-	 * 
+	 * 加密
 	 * @param data
 	 * @param salt
 	 * @param password
@@ -75,7 +77,7 @@ public abstract class PBECoder {
 	}
 
 	/**
-	 * 
+	 * 解密
 	 * @param data
 	 * @param salt
 	 * @param password
