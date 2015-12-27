@@ -17,7 +17,7 @@ public class RSACoder {
 
 	public static Map<String, Object> initKey() throws NoSuchAlgorithmException {
 		KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
-		generator.initialize(512);
+		generator.initialize(1024);// 1024 512 等
 		KeyPair keyPair = generator.generateKeyPair();
 		RSAPublicKey key = (RSAPublicKey) keyPair.getPublic();
 		RSAPrivateKey key2 = (RSAPrivateKey) keyPair.getPrivate();
