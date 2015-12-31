@@ -38,7 +38,7 @@ public abstract class AESCoder {
 	public static byte[] encypt(byte[] data, byte[] key) throws Exception {
 		Key key2 = toKey(key);
 		Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
-		cipher.init(Cipher.ENCRYPT_MODE, key2);
+		cipher.init(Cipher.ENCRYPT_MODE, key2);//加密模式
 		return cipher.doFinal(data);
 
 	}
