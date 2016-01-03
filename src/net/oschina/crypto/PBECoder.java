@@ -25,7 +25,7 @@ public abstract class PBECoder {
 	public static final int ITERATION_COUNT = 100;
 
 	/**
-	 * 
+	 * 生成密码
 	 * @param password
 	 * @return
 	 * @throws NoSuchAlgorithmException
