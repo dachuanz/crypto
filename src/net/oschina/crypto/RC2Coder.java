@@ -7,13 +7,16 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-/**
- * 
- * RC2 加密算法
- * 
- * /
+
+ 
+ 
+ 
+ 
 public abstract class   RC2Coder {
-	/**
+
+
+
+	/*
 	 * 
 	 * @return
 	 * @throws NoSuchAlgorithmException
