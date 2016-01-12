@@ -30,7 +30,7 @@ public abstract class   RC2Coder {
 	}
 
 	/**
-	 * 
+	 * 加密
 	 * 
 	 * @param data
 	 * @param key
@@ -58,9 +58,9 @@ public abstract class   RC2Coder {
 
 	/**
 	 * 
-	 * 
-	 * @param data
-	 * @param key
+	 * 解密
+	 * @param data 数据
+	 * @param key 密钥
 	 * @return
 	 * @throws Exception
 	 */
