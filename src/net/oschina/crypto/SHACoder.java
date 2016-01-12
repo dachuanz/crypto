@@ -8,7 +8,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 /**
  * 
  * @author 张大川
- *
+ *消息摘要算法
  */
 public abstract class SHACoder {
 
