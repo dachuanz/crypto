@@ -7,15 +7,10 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-/**
- *  blowfish 算法
- * /
+
+ 
 public class BlowfishCoder {
-	/**
-	 * 
-	 * @return
-	 * @throws NoSuchAlgorithmException
-	 */
+	
 	public static byte[] initKey() throws NoSuchAlgorithmException {
 		KeyGenerator kg = KeyGenerator.getInstance(KEY_ALGORITHM);
 		kg.init(56*8);
@@ -24,14 +19,7 @@ public class BlowfishCoder {
 
 	}
 
-	/**
-	 * 加密
-	 * 对称算法
-	 * @param data
-	 * @param key
-	 * @return
-	 * @throws Exception
-	 */
+	
 	public static byte[] encypt(byte[] data, byte[] key) throws Exception {
 		Key key2 = toKey(key);
 		Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
@@ -40,26 +28,13 @@ public class BlowfishCoder {
 
 	}
 
-	/**
-	 * 
-	 * @param key
-	 * @return
-	 * @throws Exception
-	 */
+
 	private static Key toKey(byte[] key) throws Exception {
 		SecretKey secretKey = new SecretKeySpec(key, KEY_ALGORITHM);
 		return secretKey;
 	}
 
-	/**
-	 * 对称算法
-	 * 解密
-	 * 
-	 * @param data
-	 * @param key
-	 * @return
-	 * @throws Exception
-	 */
+
 	public static byte[] decypt(byte[] data, byte[] key) throws Exception {
 		Key key2 = toKey(key);
 		Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
@@ -67,9 +42,7 @@ public class BlowfishCoder {
 		return cipher.doFinal(data);
 	}
 
-	/**
-	 * 
-	 */
+
 	public static final String KEY_ALGORITHM = "Blowfish";
 
 	public static final String CIPHER_ALGORITHM = "Blowfish/ECB/PKCS5Padding";
