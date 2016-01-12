@@ -10,9 +10,9 @@ import java.util.Map;
 
 /**
  * RSA 算法
- * @author zdc52
- *
- */
+ * @author 张大川
+  */
+  
 public class RSACoder {
 
 	public static Map<String, Object> initKey() throws NoSuchAlgorithmException {
