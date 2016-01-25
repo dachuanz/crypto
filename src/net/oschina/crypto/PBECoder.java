@@ -17,7 +17,8 @@ import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.PBEParameterSpec;
 /**
  * 
- * @author zdc52
+ * @author 张大川
+ * dachuanz@gmail.com
  *
  */
 public abstract class PBECoder {
