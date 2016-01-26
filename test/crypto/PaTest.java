@@ -17,7 +17,7 @@ public class PaTest {
 		for (int i = 0; i < 320; i++) {
 
 			s = RandomStringUtils.randomNumeric(18);
-			l = PartitionUtil.partitioning(s, 4);
+			l = PartitionUtil.partitioning(s, 4);// 生成分库ID
 			if (l == 0L) {
 				i2++;
 			}
