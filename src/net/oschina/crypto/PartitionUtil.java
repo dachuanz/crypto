@@ -8,8 +8,8 @@ import org.apache.commons.lang3.Conversion;
 public class PartitionUtil {
 	/**
 	 * 
-	 * @param id
-	 * @param i
+	 * @param id 需转换的主键
+	 * @param i 需分布的规模 2的次方
 	 * @return
 	 */
 	public static Long partitioning(String id, int i) {
@@ -22,12 +22,8 @@ public class PartitionUtil {
 		Long long2 = Math.round(d);
 
 		Long l = (long) (long1.getLeastSignificantBits() % long2);
-		if (l < 0L) {
-			l = (long) (l + long2 - 1);
 
-		}
-
-		return l;
+		return Math.abs(l);
 	}
 
 }
