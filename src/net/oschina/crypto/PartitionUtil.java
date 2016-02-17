@@ -1,4 +1,4 @@
-package net.oschina.crypto;
+﻿package net.oschina.crypto;
 
 import java.util.UUID;
 
@@ -20,10 +20,10 @@ public class PartitionUtil {
 
 		byte[] bs = DigestUtils.sha1(id);
 
-		UUID long1 = Conversion.byteArrayToUuid(bs, 0);
+		UUID long1 = Conversion.byteArrayToUuid(bs, 0);// 生成hash
 		double d = Math.pow(2, i);
 
-		Long l = (long) (long1.getLeastSignificantBits() % mod % d);
+		Long l = (long) (long1.getLeastSignificantBits() % mod % d);// 获得取模值
 
 		return Math.abs(l);
 	}
