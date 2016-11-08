@@ -1,4 +1,4 @@
-package net.oschina.crypto;
+﻿package net.oschina.crypto;
 
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
@@ -44,7 +44,7 @@ public abstract class AESCoder {
 	}
 
 	/**
-	 * 
+	 * 包装key
 	 * @param key
 	 * @return
 	 * @throws Exception
