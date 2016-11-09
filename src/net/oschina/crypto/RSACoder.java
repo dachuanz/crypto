@@ -17,21 +17,51 @@ import java.util.Map;
 public abstract class RSACoder {
 	public static final String KEY_ALGORITHM = "RSA";
 
+	public static final String PUBLIC_KEY = "RSAPublicKey";
+
+	public static final String PRIVATE_KEY = "RSAPrivateKey";
+	public static final int KEY_SIZE = 512;
+
+	/**
+	 * 
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 */
 	public static Map<String, Object> initKey() throws NoSuchAlgorithmException {
-		KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
-		generator.initialize(1024);// 1024 512
+		KeyPairGenerator generator = KeyPairGenerator.getInstance(KEY_ALGORITHM);
+		generator.initialize(KEY_SIZE);// 1024 512
 		KeyPair keyPair = generator.generateKeyPair();
 		RSAPublicKey key = (RSAPublicKey) keyPair.getPublic();
 		RSAPrivateKey key2 = (RSAPrivateKey) keyPair.getPrivate();
 		Map<String, Object> map = new HashMap<String, Object>(2);
-		map.put("public", key);
-		map.put("private", key2);
+		map.put(PUBLIC_KEY, key);
+		map.put(PRIVATE_KEY, key2);
 		return map;
 	}
-
+	
+	
+	/**
+	 * 
+	 * @param i
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 */
+	
+	public static Map<String, Object> initKey(int i) throws NoSuchAlgorithmException {
+		KeyPairGenerator generator = KeyPairGenerator.getInstance(KEY_ALGORITHM);
+		generator.initialize(i);// 1024 512
+		KeyPair keyPair = generator.generateKeyPair();
+		RSAPublicKey key = (RSAPublicKey) keyPair.getPublic();
+		RSAPrivateKey key2 = (RSAPrivateKey) keyPair.getPrivate();
+		Map<String, Object> map = new HashMap<String, Object>(2);
+		map.put(PUBLIC_KEY, key);
+		map.put(PRIVATE_KEY, key2);
+		return map;
+	}
+	
 	public static void main(String[] args) throws NoSuchAlgorithmException {
 		Map<String, Object> map = RSACoder.initKey();
-		System.out.println(map.get("public"));
+		System.out.println(map.get(PUBLIC_KEY));
 
 	}
 
