@@ -1,4 +1,4 @@
-package net.oschina.crypto;
+﻿package net.oschina.crypto;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -10,14 +10,15 @@ import java.util.Map;
 
 /**
  * RSA 算法
+ * 
  * @author 张大川
-  */
-  
+ */
+
 public class RSACoder {
 
 	public static Map<String, Object> initKey() throws NoSuchAlgorithmException {
 		KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
-		generator.initialize(1024);// 1024 512 等
+		generator.initialize(1024);// 1024 512 
 		KeyPair keyPair = generator.generateKeyPair();
 		RSAPublicKey key = (RSAPublicKey) keyPair.getPublic();
 		RSAPrivateKey key2 = (RSAPrivateKey) keyPair.getPrivate();
@@ -26,4 +27,11 @@ public class RSACoder {
 		map.put("private", key2);
 		return map;
 	}
+
+	public static void main(String[] args) throws NoSuchAlgorithmException {
+		Map<String, Object> map = RSACoder.initKey();
+		System.out.println(map.get("public"));
+
+	}
+
 }
