@@ -19,7 +19,7 @@ import javax.crypto.spec.PBEParameterSpec;
  * 
  * @author 张大川
  * dachuanz@gmail.com
- *
+ *基于口令的加密
  */
 public abstract class PBECoder {
 	public static final String ALGORITHM = "PBEWITHMD5andDES";
