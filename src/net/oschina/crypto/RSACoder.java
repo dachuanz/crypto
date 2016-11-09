@@ -14,11 +14,12 @@ import java.util.Map;
  * @author 张大川
  */
 
-public class RSACoder {
+public abstract class RSACoder {
+	public static final String KEY_ALGORITHM = "RSA";
 
 	public static Map<String, Object> initKey() throws NoSuchAlgorithmException {
 		KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
-		generator.initialize(1024);// 1024 512 
+		generator.initialize(1024);// 1024 512
 		KeyPair keyPair = generator.generateKeyPair();
 		RSAPublicKey key = (RSAPublicKey) keyPair.getPublic();
 		RSAPrivateKey key2 = (RSAPrivateKey) keyPair.getPrivate();
