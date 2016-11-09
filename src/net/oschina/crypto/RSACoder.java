@@ -28,6 +28,7 @@ public abstract class RSACoder {
 	 * @throws NoSuchAlgorithmException
 	 */
 	public static Map<String, Object> initKey() throws NoSuchAlgorithmException {
+		//实例化密钥生成器
 		KeyPairGenerator generator = KeyPairGenerator.getInstance(KEY_ALGORITHM);
 		generator.initialize(KEY_SIZE);// 1024 512
 		KeyPair keyPair = generator.generateKeyPair();
@@ -48,6 +49,7 @@ public abstract class RSACoder {
 	 */
 	
 	public static Map<String, Object> initKey(int i) throws NoSuchAlgorithmException {
+		//实例化密钥生成器
 		KeyPairGenerator generator = KeyPairGenerator.getInstance(KEY_ALGORITHM);
 		generator.initialize(i);// 1024 512
 		KeyPair keyPair = generator.generateKeyPair();
@@ -60,7 +62,7 @@ public abstract class RSACoder {
 	}
 	
 	public static void main(String[] args) throws NoSuchAlgorithmException {
-		Map<String, Object> map = RSACoder.initKey();
+		Map<String, Object> map = RSACoder.initKey(2048);
 		System.out.println(map.get(PUBLIC_KEY));
 
 	}
