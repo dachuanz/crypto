@@ -9,7 +9,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
- * 
+ * AES加密
  * @author 张大川
  * @version 1.0
  */
