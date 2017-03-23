@@ -8,7 +8,7 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
- 
+ //张大川
 public class BlowfishCoder {
 	
 	public static byte[] initKey() throws NoSuchAlgorithmException {
