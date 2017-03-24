@@ -73,6 +73,15 @@ public abstract class AES_ECB_Coder {
 	 * 算法定义
 	 */
 	public static final String KEY_ALGORITHM = "AES";
+/**
+ECB算法优点：
 
+简单、孤立，每个块单独运算。适合并行运算。传输错误一般只影响当前块。
+
+ECB算法缺点：
+
+同明文输出同密文，可能导致明文攻击。
+
+*/
 	public static final String CIPHER_ALGORITHM = "AES/ECB/PKCS5Padding";
 }
