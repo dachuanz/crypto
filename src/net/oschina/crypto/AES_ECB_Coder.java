@@ -83,5 +83,5 @@ ECB算法缺点：
 同明文输出同密文，可能导致明文攻击。
 
 */
-	public static final String CIPHER_ALGORITHM = "AES/ECB/PKCS5Padding";
+	public static final String CIPHER_ALGORITHM = "AES/ECB/PKCS5Padding";//ECB 需要填充
 }
