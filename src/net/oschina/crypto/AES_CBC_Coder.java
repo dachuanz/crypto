@@ -94,5 +94,5 @@ CBC算法优点：
 CBC算法缺点：
 
 需要初始向量*/
-	public static final String CIPHER_ALGORITHM = "AES/CBC/PKCS5Padding";//CBC 模式
+	public static final String CIPHER_ALGORITHM = "AES/CBC/PKCS5Padding";//CBC 模式 CBC需要填充
 }
