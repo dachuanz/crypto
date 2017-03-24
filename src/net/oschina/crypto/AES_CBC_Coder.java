@@ -85,6 +85,14 @@ public abstract class AES_CBC_Coder {
 	 * 算法定义
 	 */
 	public static final String KEY_ALGORITHM = "AES";
+/**
 
+CBC算法优点：
+
+串行化运算，相同明文不同密文
+
+CBC算法缺点：
+
+需要初始向量*/
 	public static final String CIPHER_ALGORITHM = "AES/CBC/PKCS5Padding";//CBC 模式
 }
