@@ -17,69 +17,82 @@ public class AES_OFB_Coder {
 	 * @version 1.0
 	 */
 
-		/**
-		 * 生成安全秘钥，避免弱秘钥问题
-		 * @return
-		 * @throws NoSuchAlgorithmException
-		 */
-		public static byte[] initKey() throws NoSuchAlgorithmException {
-			KeyGenerator kg = KeyGenerator.getInstance(KEY_ALGORITHM);
-			kg.init(256);// 可以为 128 192 256
-			SecretKey secretKey = kg.generateKey();
-			return secretKey.getEncoded();
+	/**
+	 * 生成安全秘钥，避免弱秘钥问题
+	 * 
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 */
+	public static byte[] initKey() throws NoSuchAlgorithmException {
+		KeyGenerator kg = KeyGenerator.getInstance(KEY_ALGORITHM);
+		kg.init(256);// 可以为 128 192 256
+		SecretKey secretKey = kg.generateKey();
+		return secretKey.getEncoded();
 
-		}
+	}
 
-		/**
-		 * 加密
-		 * 
-		 * @param data 需加密数据
-		 * @param key
-		 * @return
-		 * @throws Exception
-		 */
-		public static byte[] encypt(byte[] data, byte[] key,byte[] iv) throws Exception {
-			Key key2 = toKey(key);
-			Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
-			cipher.init(Cipher.ENCRYPT_MODE, key2,new IvParameterSpec(iv));//加密模式
-			return cipher.doFinal(data);
+	/**
+	 * 加密
+	 * 
+	 * @param data
+	 *            需加密数据
+	 * @param key
+	 * @return
+	 * @throws Exception
+	 */
+	public static byte[] encypt(byte[] data, byte[] key, byte[] iv) throws Exception {
+		Key key2 = toKey(key);
+		Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
+		cipher.init(Cipher.ENCRYPT_MODE, key2, new IvParameterSpec(iv));// 加密模式
+		return cipher.doFinal(data);
 
-		}
+	}
 
-		/**
-		 * 包装key
-		 * @param key
-		 * @return
-		 * @throws Exception
-		 */
-		private static Key toKey(byte[] key) throws Exception {
-			SecretKey secretKey = new SecretKeySpec(key, KEY_ALGORITHM);
-			return secretKey;
-		}
-		public static byte[] initIV() {
-			SecureRandom random = new SecureRandom();
+	/**
+	 * 包装key
+	 * 
+	 * @param key
+	 * @return
+	 * @throws Exception
+	 */
+	private static Key toKey(byte[] key) throws Exception {
+		SecretKey secretKey = new SecretKeySpec(key, KEY_ALGORITHM);
+		return secretKey;
+	}
 
-			return random.generateSeed(16);
-		}
-		/**
-		 * 解密
-		 * 
-		 * @param data 需解密数据
-		 * @param key
-		 * @return
-		 * @throws Exception
-		 */
-		public static byte[] decypt(byte[] data, byte[] key,byte[] iv) throws Exception {
-			Key key2 = toKey(key);
-			Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
-			cipher.init(Cipher.DECRYPT_MODE, key2,new IvParameterSpec(iv));
-			return cipher.doFinal(data);
-		}
+	public static byte[] initIV() {
+		SecureRandom random = new SecureRandom();
 
-		/**
-		 * 算法定义
-		 */
-		public static final String KEY_ALGORITHM = "AES";
+		return random.generateSeed(16);
+	}
 
-		public static final String CIPHER_ALGORITHM = "AES/OFB/PKCS5Padding";
+	/**
+	 * 解密
+	 * 
+	 * @param data
+	 *            需解密数据
+	 * @param key
+	 * @return
+	 * @throws Exception
+	 */
+	public static byte[] decypt(byte[] data, byte[] key, byte[] iv) throws Exception {
+		Key key2 = toKey(key);
+		Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
+		cipher.init(Cipher.DECRYPT_MODE, key2, new IvParameterSpec(iv));
+		return cipher.doFinal(data);
+	}
+
+	/**
+	 * 算法定义
+	 */
+	public static final String KEY_ALGORITHM = "AES";
+/**
+OFB算法优点：
+
+同明文不同密文，分组密钥转换为流密码。
+
+OFB算法缺点：
+
+串行运算不利并行，传输错误可能导致后续传输块错误。*/
+	public static final String CIPHER_ALGORITHM = "AES/OFB/NoPadding";// OFB模式不需要填充
 }
