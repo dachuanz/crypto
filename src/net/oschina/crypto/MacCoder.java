@@ -11,7 +11,7 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * 消息摘要算法，比传统的摘要算法更加安全
  * 
- * @author zdc52
+ * @author 张大川
  *
  */
 public abstract class MacCoder {
