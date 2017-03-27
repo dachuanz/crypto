@@ -48,6 +48,18 @@ public abstract class SHACoder {
 	}
 
 	/**
+	 * java 8 提供了 sha 224 摘要
+	 * @param data
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 */
+	public static byte[] encodeSHA224(byte[] data) throws NoSuchAlgorithmException {
+		MessageDigest digest = MessageDigest.getInstance("SHA-224");
+		return digest.digest(data);
+
+	}
+
+	/**
 	 * MD5生成16个字节的摘要 MD5 目前已经不安全了
 	 * 
 	 * @param string
@@ -64,7 +76,7 @@ public abstract class SHACoder {
 		String string = "123456789";
 		byte[] bs = string.getBytes();
 		System.err.println("明文" + string);
-		byte[] bs2 = SHACoder.encodeSHA512(bs);
+		byte[] bs2 = SHACoder.encodeSHA224(bs);
 		/**
 		 * 使用java 8自带base64算法
 		 */
