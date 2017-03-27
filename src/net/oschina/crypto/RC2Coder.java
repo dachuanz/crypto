@@ -9,7 +9,10 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
  
+ /**
  
+ RC2 算法实现
+ */
  
  
 public abstract class   RC2Coder {
