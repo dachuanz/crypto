@@ -1,4 +1,4 @@
-﻿package net.oschina.crypto;
+package net.oschina.crypto;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -23,12 +23,12 @@ public abstract class RSACoder {
 	public static final int KEY_SIZE = 512;
 
 	/**
-	 *  
+	 * 
 	 * @return
 	 * @throws NoSuchAlgorithmException
 	 */
 	public static Map<String, Object> initKey() throws NoSuchAlgorithmException {
-		//实例化密钥生成器
+		// 实例化密钥生成器
 		KeyPairGenerator generator = KeyPairGenerator.getInstance(KEY_ALGORITHM);
 		generator.initialize(KEY_SIZE);// 1024 512
 		KeyPair keyPair = generator.generateKeyPair();
@@ -39,17 +39,17 @@ public abstract class RSACoder {
 		map.put(PRIVATE_KEY, key2);
 		return map;
 	}
-	
-	
+
 	/**
-	 *  生成密钥对
-	 * @param i 可选 512 1024
+	 * 生成密钥对
+	 * 
+	 * @param i 可选 512 1024 2048
 	 * @return
 	 * @throws NoSuchAlgorithmException
 	 */
-	
+
 	public static Map<String, Object> initKey(int i) throws NoSuchAlgorithmException {
-		//实例化密钥生成器
+		// 实例化密钥生成器
 		KeyPairGenerator generator = KeyPairGenerator.getInstance(KEY_ALGORITHM);
 		generator.initialize(i);// 1024 512
 		KeyPair keyPair = generator.generateKeyPair();
@@ -60,9 +60,9 @@ public abstract class RSACoder {
 		map.put(PRIVATE_KEY, key2);
 		return map;
 	}
-	
+
 	public static void main(String[] args) throws NoSuchAlgorithmException {
-		Map<String, Object> map = RSACoder.initKey(2048);
+		Map<String, Object> map = RSACoder.initKey(1024);
 		System.out.println(map.get(PUBLIC_KEY));
 
 	}
