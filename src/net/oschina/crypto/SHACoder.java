@@ -11,7 +11,7 @@ import java.util.Base64;
 public abstract class SHACoder {
 
 	/**
-	 * 
+	 * SHA 算法也不推荐使用
 	 * @param bs
 	 * @return
 	 * @throws NoSuchAlgorithmException
