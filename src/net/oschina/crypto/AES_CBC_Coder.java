@@ -1,98 +1,131 @@
 package net.oschina.crypto;
 
-import java.security.Key;
+import java.security.GeneralSecurityException;
+import java.security.InvalidKeyException;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
+import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 /**
+ * RSA ç®—æ³•
  * 
- * @author ÕÅ´ó´¨
- * @version 1.0
+ * @author å¼ å¤§å·
  */
-public abstract class AES_CBC_Coder {
+
+public abstract class RSACoder {
+	public static final String KEY_ALGORITHM = "RSA";
+
+	public static final String PUBLIC_KEY = "RSAPublicKey";
+	public static final String CIPHER_ALGORITHM = "RSA/ECB/PKCS1Padding";
+	public static final String PRIVATE_KEY = "RSAPrivateKey";
+	public static final int KEY_SIZE = 512;
+
 	/**
-	 * Éú³É°²È«ÃØÔ¿£¬±ÜÃâÈõÃØÔ¿ÎÊÌâ
 	 * 
 	 * @return
 	 * @throws NoSuchAlgorithmException
 	 */
-	public static byte[] initKey() throws NoSuchAlgorithmException {
-		KeyGenerator kg = KeyGenerator.getInstance(KEY_ALGORITHM);
-		kg.init(256);// ¿ÉÒÔÎª 128 192 256
-		SecretKey secretKey = kg.generateKey();
-		return secretKey.getEncoded();
-
+	public static Map<String, Object> initKey() throws NoSuchAlgorithmException {
+		// å®ä¾‹åŒ–å¯†é’¥ç”Ÿæˆå™¨
+		KeyPairGenerator generator = KeyPairGenerator.getInstance(KEY_ALGORITHM);
+		generator.initialize(KEY_SIZE);// 1024 512
+		KeyPair keyPair = generator.generateKeyPair();
+		RSAPublicKey key = (RSAPublicKey) keyPair.getPublic();
+		RSAPrivateKey key2 = (RSAPrivateKey) keyPair.getPrivate();
+		Map<String, Object> map = new HashMap<String, Object>(2);
+		map.put(PUBLIC_KEY, key);
+		map.put(PRIVATE_KEY, key2);
+		return map;
 	}
 
 	/**
-	 * ¼ÓÃÜ
+	 * ç”Ÿæˆå¯†é’¥å¯¹
+	 * 
+	 * @param i
+	 *            å¯é€‰ 512 1024 2048
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 */
+
+	public static Map<String, Object> initKey(int i) throws NoSuchAlgorithmException {
+		// å®ä¾‹åŒ–å¯†é’¥ç”Ÿæˆå™¨
+		KeyPairGenerator generator = KeyPairGenerator.getInstance(KEY_ALGORITHM);
+		generator.initialize(i);// 1024 512
+		KeyPair keyPair = generator.generateKeyPair();
+		RSAPublicKey key = (RSAPublicKey) keyPair.getPublic();
+		RSAPrivateKey key2 = (RSAPrivateKey) keyPair.getPrivate();
+		Map<String, Object> map = new HashMap<String, Object>(2);
+		map.put(PUBLIC_KEY, key);
+		map.put(PRIVATE_KEY, key2);
+		return map;
+	}
+
+	/**
+	 * ç§é’¥è§£å¯†
 	 * 
 	 * @param data
-	 *            Ğè¼ÓÃÜÊı¾İ
-	 * @param key
+	 * @param privateKey
 	 * @return
+	 * @throws GeneralSecurityException
+	 * @throws NoSuchAlgorithmException
 	 * @throws Exception
 	 */
-	public static byte[] encypt(byte[] data, byte[] key, byte[] iv) throws Exception {
-		Key key2 = toKey(key);
+	public static byte[] decryptByPrivateKey(byte[] data, RSAPrivateKey privateKey)
+			throws NoSuchAlgorithmException, GeneralSecurityException {
 		Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
-		cipher.init(Cipher.ENCRYPT_MODE, key2, new IvParameterSpec(iv));// ¼ÓÃÜÄ£Ê½
-		return cipher.doFinal(data);
-
-	}
-
-	public static byte[] initIV() {
-		SecureRandom random = new SecureRandom();
-
-		return random.generateSeed(16);
-	}
-
-	/**
-	 * °ü×°key
-	 * 
-	 * @param key
-	 * @return
-	 * @throws Exception
-	 */
-	private static Key toKey(byte[] key) throws Exception {
-		SecretKey secretKey = new SecretKeySpec(key, KEY_ALGORITHM);
-		return secretKey;
-	}
-
-	/**
-	 * ½âÃÜ
-	 * 
-	 * @param data
-	 *            Ğè½âÃÜÊı¾İ
-	 * @param key
-	 * @return
-	 * @throws Exception
-	 */
-	public static byte[] decypt(byte[] data, byte[] key, byte[] iv) throws Exception {
-		Key key2 = toKey(key);
-		Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
-		cipher.init(Cipher.DECRYPT_MODE, key2, new IvParameterSpec(iv));
+		cipher.init(Cipher.DECRYPT_MODE, privateKey);
 		return cipher.doFinal(data);
 	}
 
 	/**
-	 * Ëã·¨¶¨Òå
+	 * å…¬é’¥åŠ å¯†
+	 * 
+	 * @param data
+	 * @param publicKey
+	 * @return
+	 * @throws NoSuchPaddingException
+	 * @throws NoSuchAlgorithmException
+	 * @throws InvalidKeyException
+	 * @throws BadPaddingException
+	 * @throws IllegalBlockSizeException
+	 * @throws Exception
 	 */
-	public static final String KEY_ALGORITHM = "AES";
-/**
+	public static byte[] encryptByPublicKey(byte[] data, RSAPublicKey publicKey) throws NoSuchAlgorithmException,
+			NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+		Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
+		cipher.init(Cipher.ENCRYPT_MODE, publicKey);
 
-CBCËã·¨ÓÅµã£º
+		return cipher.doFinal(data);
+	}
 
-´®ĞĞ»¯ÔËËã£¬ÏàÍ¬Ã÷ÎÄ²»Í¬ÃÜÎÄ
+	public static void main(String[] args) throws Exception {
+		Map<String, Object> map = RSACoder.initKey(1024);
+		// System.out.println(map.get(PUBLIC_KEY));
 
-CBCËã·¨È±µã£º
+		String string = "12345678909";
+		byte[] bs = string.getBytes();
+		System.err.println("æ˜æ–‡:" + string);
+		// byte[] bs2 = AESCoder.initKey();
+		/**
+		 * ä½¿ç”¨java 8è‡ªå¸¦base64ç®—æ³•
+		 */
+		// System.err.println("å¯†ç " + Base64.getEncoder().encodeToString(bs2));
+		bs = RSACoder.encryptByPublicKey(bs, (RSAPublicKey) map.get(PUBLIC_KEY));
+		System.err.println("åŠ å¯†å:" + Base64.getEncoder().encodeToString(bs));
+		byte[] bs3 = RSACoder.decryptByPrivateKey(bs, (RSAPrivateKey) map.get(PRIVATE_KEY));
+		String string2 = new String(bs3);
+		System.err.println("è§£å¯†å:" + string2);
 
-ĞèÒª³õÊ¼ÏòÁ¿*/
-	public static final String CIPHER_ALGORITHM = "AES/CBC/PKCS5Padding";//CBC Ä£Ê½ CBCĞèÒªÌî³ä
+	}
+
 }
