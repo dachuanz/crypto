@@ -1,4 +1,4 @@
-package net.oschina.crypto;
+﻿package net.oschina.crypto;
 
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
@@ -33,10 +33,9 @@ public abstract class AES_CBC_Coder {
 	/**
 	 * 加密
 	 * 
-	 * @param data
-	 *            需加密数据
-	 * @param key
-	 * @return
+	 * @param data 需加密数据
+	 * @param key    密钥
+	 * @return   
 	 * @throws Exception
 	 */
 	public static byte[] encypt(byte[] data, byte[] key, byte[] iv) throws Exception {
@@ -69,7 +68,7 @@ public abstract class AES_CBC_Coder {
 	 * 解密
 	 * 
 	 * @param data
-	 *            需解密数据
+	 * 需解密数据
 	 * @param key
 	 * @return
 	 * @throws Exception
@@ -86,6 +85,6 @@ public abstract class AES_CBC_Coder {
 	 */
 	public static final String KEY_ALGORITHM = "AES";
 
-	public static final String CIPHER_ALGORITHM = "AES/PCBC/PKCS5Padding";// CBC
-																			// 模式
+	public static final String CIPHER_ALGORITHM = "AES/PCBC/PKCS5Padding";// CBC 模式需要填充
+																			
 }
