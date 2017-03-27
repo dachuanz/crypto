@@ -42,8 +42,8 @@ public abstract class RSACoder {
 	
 	
 	/**
-	 * 
-	 * @param i
+	 *  生成密钥对
+	 * @param i 可选 512 1024
 	 * @return
 	 * @throws NoSuchAlgorithmException
 	 */
