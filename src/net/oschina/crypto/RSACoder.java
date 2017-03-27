@@ -1,12 +1,20 @@
 package net.oschina.crypto;
 
+import java.security.GeneralSecurityException;
+import java.security.InvalidKeyException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 /**
  * RSA 算法
@@ -18,7 +26,7 @@ public abstract class RSACoder {
 	public static final String KEY_ALGORITHM = "RSA";
 
 	public static final String PUBLIC_KEY = "RSAPublicKey";
-
+	public static final String CIPHER_ALGORITHM = "RSA/ECB/PKCS1Padding";
 	public static final String PRIVATE_KEY = "RSAPrivateKey";
 	public static final int KEY_SIZE = 512;
 
@@ -43,7 +51,8 @@ public abstract class RSACoder {
 	/**
 	 * 生成密钥对
 	 * 
-	 * @param i 可选 512 1024 2048
+	 * @param i
+	 *            可选 512 1024 2048
 	 * @return
 	 * @throws NoSuchAlgorithmException
 	 */
@@ -61,9 +70,61 @@ public abstract class RSACoder {
 		return map;
 	}
 
-	public static void main(String[] args) throws NoSuchAlgorithmException {
+	/**
+	 * 私钥解密
+	 * 
+	 * @param data
+	 * @param privateKey
+	 * @return
+	 * @throws GeneralSecurityException
+	 * @throws NoSuchAlgorithmException
+	 * @throws Exception
+	 */
+	public static byte[] decryptByPrivateKey(byte[] data, RSAPrivateKey privateKey)
+			throws NoSuchAlgorithmException, GeneralSecurityException {
+		Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
+		cipher.init(Cipher.DECRYPT_MODE, privateKey);
+		return cipher.doFinal(data);
+	}
+
+	/**
+	 * 公钥加密
+	 * 
+	 * @param data
+	 * @param publicKey
+	 * @return
+	 * @throws NoSuchPaddingException
+	 * @throws NoSuchAlgorithmException
+	 * @throws InvalidKeyException
+	 * @throws BadPaddingException
+	 * @throws IllegalBlockSizeException
+	 * @throws Exception
+	 */
+	public static byte[] encryptByPublicKey(byte[] data, RSAPublicKey publicKey) throws NoSuchAlgorithmException,
+			NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+		Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
+		cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+
+		return cipher.doFinal(data);
+	}
+
+	public static void main(String[] args) throws Exception {
 		Map<String, Object> map = RSACoder.initKey(1024);
-		System.out.println(map.get(PUBLIC_KEY));
+		// System.out.println(map.get(PUBLIC_KEY));
+
+		String string = "12345678909";
+		byte[] bs = string.getBytes();
+		System.err.println("明文:" + string);
+		// byte[] bs2 = AESCoder.initKey();
+		/**
+		 * 使用java 8自带base64算法
+		 */
+		// System.err.println("密码" + Base64.getEncoder().encodeToString(bs2));
+		bs = RSACoder.encryptByPublicKey(bs, (RSAPublicKey) map.get(PUBLIC_KEY));
+		System.err.println("加密后:" + Base64.getEncoder().encodeToString(bs));
+		byte[] bs3 = RSACoder.decryptByPrivateKey(bs, (RSAPrivateKey) map.get(PRIVATE_KEY));
+		String string2 = new String(bs3);
+		System.err.println("解密后:" + string2);
 
 	}
 
