@@ -2,13 +2,11 @@ package net.oschina.crypto;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-import org.apache.commons.codec.digest.DigestUtils;
+import java.util.Base64;
 
 /**
  * 
- * @author å¼ å¤§å·
- *æ¶ˆæ¯æ‘˜è¦ç®—æ³•
+ * @author ÕÅ´ó´¨ ÏûÏ¢ÕªÒªËã·¨
  */
 public abstract class SHACoder {
 
@@ -18,51 +16,50 @@ public abstract class SHACoder {
 	 * @return
 	 * @throws NoSuchAlgorithmException
 	 */
-	public static byte[] encodeSHA(byte[] bs) throws NoSuchAlgorithmException {
+	public static byte[] encodeSHA1(byte[] bs) throws NoSuchAlgorithmException {
 		MessageDigest digest = MessageDigest.getInstance("SHA");
 		return digest.digest(bs);
 
 	}
 
 	/**
-	 * SHA-1 ç”Ÿæˆ20ä¸ªå­—èŠ‚çš„æ‘˜è¦
+	 * SHA-256 Éú³É32¸ö×Ö½ÚµÄÕªÒª
 	 * 
 	 * @param string
 	 * @return
+	 * @throws NoSuchAlgorithmException
 	 */
-	public static byte[] encodeSHA1(String data) {
-		return DigestUtils.sha1(data);
+	public static byte[] encodeSHA256(byte[] data) throws NoSuchAlgorithmException {
+		MessageDigest digest = MessageDigest.getInstance("SHA-256");
+		return digest.digest(data);
 
 	}
 
 	/**
-	 * SHA-256 ç”Ÿæˆ32ä¸ªå­—èŠ‚çš„æ‘˜è¦
-	 * 
+	 * MD5Éú³É16¸ö×Ö½ÚµÄÕªÒª
+	 * MD5 Ä¿Ç°ÒÑ¾­²»°²È«ÁË
 	 * @param string
 	 * @return
+	 * @throws NoSuchAlgorithmException
 	 */
-	public static byte[] encodeSHA256(String data) {
-		return DigestUtils.sha256(data);
+	public static byte[] encodeMD5(byte[] data) throws NoSuchAlgorithmException {
+		MessageDigest digest = MessageDigest.getInstance("MD5");
+		return digest.digest(data);
+	}
+
+	public static void main(String[] args) throws NoSuchAlgorithmException {
+
+		String string = "1234567890";
+		byte[] bs = string.getBytes();
+		System.err.println("Ã÷ÎÄ" + string);
+		byte[] bs2 = SHACoder.encodeSHA1(bs);
+		/**
+		 * Ê¹ÓÃjava 8×Ô´øbase64Ëã·¨
+		 */
+		System.err.println("ÃÜÂë:" + Base64.getEncoder().encodeToString(bs2));
+		// byte[] bs4 = AES_OFB_Coder.initIV();
+		// System.err.println("ÏòÁ¿:" + Base64.getEncoder().encodeToString(bs4));
 
 	}
-	
-	/**
-	 * MD5ç”Ÿæˆ16ä¸ªå­—èŠ‚çš„æ‘˜è¦
-	 * @param string
-	 * @return
-	 */
-	public static byte[] encodeMD5(String data)
-	{
-		return DigestUtils.md5(data);
-	}
-	/**
-	 * SHA-384ç”Ÿæˆ48ä¸ªå­—èŠ‚çš„æ‘˜è¦
-	 * @param data
-	 * @return
-	 */
-	public static byte[] encodeSHA384(String data)
-	{
-		return DigestUtils.sha384(data);
-	}
-	
+
 }
