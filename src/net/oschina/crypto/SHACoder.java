@@ -6,12 +6,12 @@ import java.util.Base64;
 
 /**
  * 
- * @author ÕÅ´ó´¨ ÏûÏ¢ÕªÒªËã·¨
+ * @author  å¼ å¤§å·
  */
 public abstract class SHACoder {
 
 	/**
-	 * SHA Ëã·¨Ò²²»ÍÆ¼öÊ¹ÓÃ
+	 * 
 	 * @param bs
 	 * @return
 	 * @throws NoSuchAlgorithmException
@@ -23,7 +23,7 @@ public abstract class SHACoder {
 	}
 
 	/**
-	 * SHA-256 Éú³É32¸ö×Ö½ÚµÄÕªÒª
+	 * SHA-256
 	 * 
 	 * @param data
 	 * @return
@@ -31,6 +31,13 @@ public abstract class SHACoder {
 	 */
 	public static byte[] encodeSHA256(byte[] data) throws NoSuchAlgorithmException {
 		MessageDigest digest = MessageDigest.getInstance("SHA-256");
+		return digest.digest(data);
+
+	}
+
+	
+	public static byte[] encodeSHA384(byte[] data) throws NoSuchAlgorithmException {
+		MessageDigest digest = MessageDigest.getInstance("SHA-384");
 		return digest.digest(data);
 
 	}
@@ -48,7 +55,7 @@ public abstract class SHACoder {
 	}
 
 	/**
-	 * java 8 Ìá¹©ÁË sha 224 ÕªÒª
+	 * 
 	 * @param data
 	 * @return
 	 * @throws NoSuchAlgorithmException
@@ -60,7 +67,7 @@ public abstract class SHACoder {
 	}
 
 	/**
-	 * MD5Éú³É16¸ö×Ö½ÚµÄÕªÒª MD5 Ä¿Ç°ÒÑ¾­²»°²È«ÁË
+	 * 
 	 * 
 	 * @param string
 	 * @return
@@ -71,18 +78,32 @@ public abstract class SHACoder {
 		return digest.digest(data);
 	}
 
+	/**
+	 * 
+	 * MD2
+	 * @param data
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 */
+	
+	public static byte[] encodeMD2(byte[] data) throws NoSuchAlgorithmException {
+		MessageDigest digest = MessageDigest.getInstance("MD2");
+		return digest.digest(data);
+	}
+
 	public static void main(String[] args) throws NoSuchAlgorithmException {
 
 		String string = "123456789";
 		byte[] bs = string.getBytes();
-		System.err.println("Ã÷ÎÄ" + string);
-		byte[] bs2 = SHACoder.encodeSHA224(bs);
+	//	Hex
+		System.err.println("æ˜æ–‡ï¼š" + string);
+		byte[] bs2 = SHACoder.encodeMD2(bs);
 		/**
-		 * Ê¹ÓÃjava 8×Ô´øbase64Ëã·¨
+		 * Ê¹ï¿½ï¿½java 8ï¿½Ô´ï¿½base64ï¿½ã·¨
 		 */
-		System.err.println("ÃÜÂë:" + Base64.getEncoder().encodeToString(bs2));
+		System.err.println("åŠ å¯†å:" + Base64.getEncoder().encodeToString(bs2));
 		// byte[] bs4 = AES_OFB_Coder.initIV();
-		// System.err.println("ÏòÁ¿:" + Base64.getEncoder().encodeToString(bs4));
+		// System.err.println("ï¿½ï¿½ï¿½ï¿½:" + Base64.getEncoder().encodeToString(bs4));
 
 	}
 
