@@ -2,11 +2,15 @@ package net.oschina.crypto;
 
 import java.security.GeneralSecurityException;
 import java.security.InvalidKeyException;
+import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
@@ -63,7 +67,10 @@ public abstract class RSACoder {
 		generator.initialize(i);// 1024 512
 		KeyPair keyPair = generator.generateKeyPair();
 		RSAPublicKey key = (RSAPublicKey) keyPair.getPublic();
+		// System.out.println(key.getEncoded());
+
 		RSAPrivateKey key2 = (RSAPrivateKey) keyPair.getPrivate();
+		// System.out.println(key2.getEncoded());
 		Map<String, Object> map = new HashMap<String, Object>(2);
 		map.put(PUBLIC_KEY, key);
 		map.put(PRIVATE_KEY, key2);
@@ -104,8 +111,38 @@ public abstract class RSACoder {
 			NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
 		Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
 		cipher.init(Cipher.ENCRYPT_MODE, publicKey);
-
 		return cipher.doFinal(data);
+	}
+
+	/**
+	 * 
+	 * 私钥加密
+	 * 
+	 * @param data
+	 * @param key
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 * @throws InvalidKeySpecException
+	 * @throws NoSuchPaddingException
+	 * @throws InvalidKeyException
+	 * @throws IllegalBlockSizeException
+	 * @throws BadPaddingException
+	 */
+	public static byte[] encryptByPrivateKey(byte[] data, byte[] key)
+			throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidKeyException,
+			IllegalBlockSizeException, BadPaddingException {
+		/**
+		 * 私钥规范 PKCS8，描述私有密钥信息格式
+		 * 
+		 */
+		PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(key);
+		KeyFactory factory = KeyFactory.getInstance(KEY_ALGORITHM);
+		PrivateKey key2 = factory.generatePrivate(keySpec);
+		System.out.println(factory.getAlgorithm());
+		Cipher cipher = Cipher.getInstance(factory.getAlgorithm());
+		cipher.init(Cipher.ENCRYPT_MODE, key2);
+		return cipher.doFinal(data);
+
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -119,12 +156,14 @@ public abstract class RSACoder {
 		/**
 		 * 使用java 8自带base64算法
 		 */
+		PrivateKey key = (PrivateKey) map.get(PRIVATE_KEY);
 		// System.err.println("密码" + Base64.getEncoder().encodeToString(bs2));
-		bs = RSACoder.encryptByPublicKey(bs, (RSAPublicKey) map.get(PUBLIC_KEY));
+		bs = RSACoder.encryptByPrivateKey(bs, key.getEncoded());
 		System.err.println("加密后:" + Base64.getEncoder().encodeToString(bs));
-		byte[] bs3 = RSACoder.decryptByPrivateKey(bs, (RSAPrivateKey) map.get(PRIVATE_KEY));
-		String string2 = new String(bs3);
-		System.err.println("解密后:" + string2);
+		// byte[] bs3 = RSACoder.decryptByPrivateKey(bs, (RSAPrivateKey)
+		// map.get(PRIVATE_KEY));
+		// String string2 = new String(bs3);
+		// System.err.println("解密后:" + string2);
 
 	}
 
