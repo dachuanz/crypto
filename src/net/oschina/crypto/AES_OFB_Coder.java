@@ -1,11 +1,16 @@
 package net.oschina.crypto;
 
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
@@ -13,49 +18,57 @@ import javax.crypto.spec.SecretKeySpec;
 public class AES_OFB_Coder {
 	/**
 	 * 
-	 * @author 张大川
+	 * @author
 	 * @version 1.0
 	 */
 
 	/**
-	 * 生成安全秘钥，避免弱秘钥问题
+	 * 
 	 * 
 	 * @return
 	 * @throws NoSuchAlgorithmException
 	 */
-	public static byte[] initKey() throws NoSuchAlgorithmException {
+	public static byte[] initKey(int i) throws NoSuchAlgorithmException {
 		KeyGenerator kg = KeyGenerator.getInstance(KEY_ALGORITHM);
-		kg.init(256);// 可以为 128 192 256
+		kg.init(i);// 128 192 256
 		SecretKey secretKey = kg.generateKey();
 		return secretKey.getEncoded();
 
 	}
 
 	/**
-	 * 加密
+	 * 
 	 * 
 	 * @param data
-	 *            需加密数据
+	 * 
 	 * @param key
 	 * @return
+	 * @throws BadPaddingException
+	 * @throws IllegalBlockSizeException
+	 * @throws InvalidAlgorithmParameterException
+	 * @throws InvalidKeyException
+	 * @throws NoSuchPaddingException
+	 * @throws NoSuchAlgorithmException
 	 * @throws Exception
 	 */
-	public static byte[] encypt(byte[] data, byte[] key, byte[] iv) throws Exception {
+	public static byte[] encypt(byte[] data, byte[] key, byte[] iv)
+			throws IllegalBlockSizeException, BadPaddingException, InvalidKeyException,
+			InvalidAlgorithmParameterException, NoSuchAlgorithmException, NoSuchPaddingException {
 		Key key2 = toKey(key);
 		Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
-		cipher.init(Cipher.ENCRYPT_MODE, key2, new IvParameterSpec(iv));// 加密模式
+		cipher.init(Cipher.ENCRYPT_MODE, key2, new IvParameterSpec(iv));//
 		return cipher.doFinal(data);
 
 	}
 
 	/**
-	 * 包装key
+	 * 
 	 * 
 	 * @param key
 	 * @return
 	 * @throws Exception
 	 */
-	private static Key toKey(byte[] key) throws Exception {
+	private static Key toKey(byte[] key) {
 		SecretKey secretKey = new SecretKeySpec(key, KEY_ALGORITHM);
 		return secretKey;
 	}
@@ -67,15 +80,23 @@ public class AES_OFB_Coder {
 	}
 
 	/**
-	 * 解密
+	 * 
 	 * 
 	 * @param data
-	 *            需解密数据
+	 * 
 	 * @param key
 	 * @return
+	 * @throws NoSuchPaddingException
+	 * @throws NoSuchAlgorithmException
+	 * @throws InvalidAlgorithmParameterException
+	 * @throws InvalidKeyException
+	 * @throws BadPaddingException
+	 * @throws IllegalBlockSizeException
 	 * @throws Exception
 	 */
-	public static byte[] decypt(byte[] data, byte[] key, byte[] iv) throws Exception {
+	public static byte[] decypt(byte[] data, byte[] key, byte[] iv)
+			throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException,
+			InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
 		Key key2 = toKey(key);
 		Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
 		cipher.init(Cipher.DECRYPT_MODE, key2, new IvParameterSpec(iv));
@@ -83,16 +104,9 @@ public class AES_OFB_Coder {
 	}
 
 	/**
-	 * 算法定义
+	 * 
 	 */
 	public static final String KEY_ALGORITHM = "AES";
-/**
-OFB算法优点：
 
-同明文不同密文，分组密钥转换为流密码。
-
-OFB算法缺点：
-
-串行运算不利并行，传输错误可能导致后续传输块错误。*/
-	public static final String CIPHER_ALGORITHM = "AES/OFB/NoPadding";// OFB模式不需要填充
+	public static final String CIPHER_ALGORITHM = "AES/OFB/NoPadding";
 }
