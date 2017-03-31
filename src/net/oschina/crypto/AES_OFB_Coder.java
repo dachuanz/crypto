@@ -15,12 +15,16 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-public class AES_OFB_Coder {
-	/**
-	 * 
-	 * @author
-	 * @version 1.0
-	 */
+/**
+ * 
+ * @author 张大川 (dachuanz@gmail.com)
+ *
+ */
+public abstract class AES_OFB_Coder {
+
+	public static final String KEY_ALGORITHM = "AES";
+
+	public static final String CIPHER_ALGORITHM = "AES/OFB/NoPadding";
 
 	/**
 	 * 
@@ -30,7 +34,7 @@ public class AES_OFB_Coder {
 	 */
 	public static byte[] initKey(int i) throws NoSuchAlgorithmException {
 		KeyGenerator kg = KeyGenerator.getInstance(KEY_ALGORITHM);
-		kg.init(i);// 128 192 256
+		kg.init(i);// AES 的密钥长度，只能为 128 192 256
 		SecretKey secretKey = kg.generateKey();
 		return secretKey.getEncoded();
 
@@ -73,6 +77,10 @@ public class AES_OFB_Coder {
 		return secretKey;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public static byte[] initIV() {
 		SecureRandom random = new SecureRandom();
 
@@ -103,10 +111,4 @@ public class AES_OFB_Coder {
 		return cipher.doFinal(data);
 	}
 
-	/**
-	 * 
-	 */
-	public static final String KEY_ALGORITHM = "AES";
-
-	public static final String CIPHER_ALGORITHM = "AES/OFB/NoPadding";
 }
