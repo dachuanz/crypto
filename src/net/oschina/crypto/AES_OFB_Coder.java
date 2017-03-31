@@ -78,7 +78,7 @@ public abstract class AES_OFB_Coder {
 	}
 
 	/**
-	 * 
+	 * 生成16字节随机数作为向量
 	 * @return
 	 */
 	public static byte[] initIV() {
