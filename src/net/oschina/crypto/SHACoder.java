@@ -6,19 +6,13 @@ import java.util.Base64;
 
 /**
  * 
- * @author  张大川
+ * @author 张大川
  */
 public abstract class SHACoder {
 
-	/**
-	 * 
-	 * @param bs
-	 * @return
-	 * @throws NoSuchAlgorithmException
-	 */
-	public static byte[] encodeSHA1(byte[] bs) throws NoSuchAlgorithmException {
+	public static byte[] encodeSHA1(byte[] data) throws NoSuchAlgorithmException {
 		MessageDigest digest = MessageDigest.getInstance("SHA");
-		return digest.digest(bs);
+		return digest.digest(data);
 
 	}
 
@@ -35,7 +29,6 @@ public abstract class SHACoder {
 
 	}
 
-	
 	public static byte[] encodeSHA384(byte[] data) throws NoSuchAlgorithmException {
 		MessageDigest digest = MessageDigest.getInstance("SHA-384");
 		return digest.digest(data);
@@ -81,11 +74,12 @@ public abstract class SHACoder {
 	/**
 	 * 
 	 * MD2
+	 * 
 	 * @param data
 	 * @return
 	 * @throws NoSuchAlgorithmException
 	 */
-	
+
 	public static byte[] encodeMD2(byte[] data) throws NoSuchAlgorithmException {
 		MessageDigest digest = MessageDigest.getInstance("MD2");
 		return digest.digest(data);
@@ -95,15 +89,16 @@ public abstract class SHACoder {
 
 		String string = "123456789";
 		byte[] bs = string.getBytes();
-	//	Hex
+		// Hex
 		System.err.println("明文：" + string);
 		byte[] bs2 = SHACoder.encodeMD2(bs);
 		/**
-		 * ʹ��java 8�Դ�base64�㷨
+		 * 
 		 */
 		System.err.println("加密后:" + Base64.getEncoder().encodeToString(bs2));
 		// byte[] bs4 = AES_OFB_Coder.initIV();
-		// System.err.println("����:" + Base64.getEncoder().encodeToString(bs4));
+		// System.err.println("����:" +
+		// Base64.getEncoder().encodeToString(bs4));
 
 	}
 

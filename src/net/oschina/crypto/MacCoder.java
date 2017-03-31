@@ -2,6 +2,7 @@ package net.oschina.crypto;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
@@ -28,6 +29,20 @@ public abstract class MacCoder {
 	}
 
 	/**
+	 * 初始化 SHA key
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 */
+
+	public static byte[] initHmacSHAKey() throws NoSuchAlgorithmException {
+
+		KeyGenerator generator = KeyGenerator.getInstance("HmacSHA1");
+		SecretKey key = generator.generateKey();
+		return key.getEncoded();
+
+	}
+
+	/**
 	 * 
 	 * 生成 摘要值
 	 * 
@@ -43,6 +58,11 @@ public abstract class MacCoder {
 		mac.init(key2);
 		return mac.doFinal(data);
 
+	}
+
+	public static void main(String[] args) throws NoSuchAlgorithmException {
+		byte[] bs = MacCoder.initHmacSHAKey();
+		System.out.println(Base64.getEncoder().encodeToString(bs));
 	}
 
 }
