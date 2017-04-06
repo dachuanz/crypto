@@ -1,5 +1,7 @@
 package net.oschina.crypto;
 
+
+
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 
@@ -7,10 +9,15 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+/**
+ * 
+ * @author 
+ *
+ */
+public abstract class BlowfishCoder {
+	public static final String KEY_ALGORITHM = "Blowfish";
 
- //张大川
-public class BlowfishCoder {
-	
+	public static final String CIPHER_ALGORITHM = "Blowfish/ECB/PKCS5Padding";
 	public static byte[] initKey() throws NoSuchAlgorithmException {
 		KeyGenerator kg = KeyGenerator.getInstance(KEY_ALGORITHM);
 		kg.init(56*8);
@@ -43,7 +50,5 @@ public class BlowfishCoder {
 	}
 
 
-	public static final String KEY_ALGORITHM = "Blowfish";
-
-	public static final String CIPHER_ALGORITHM = "Blowfish/ECB/PKCS5Padding";
+	
 }
