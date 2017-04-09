@@ -1,4 +1,4 @@
-package net.oschina.crypto;
+﻿package net.oschina.crypto;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -96,9 +96,7 @@ public abstract class SHACoder {
 		 * 
 		 */
 		System.err.println("加密后:" + Base64.getEncoder().encodeToString(bs2));
-		// byte[] bs4 = AES_OFB_Coder.initIV();
-		// System.err.println("����:" +
-		// Base64.getEncoder().encodeToString(bs4));
+		
 
 	}
 
