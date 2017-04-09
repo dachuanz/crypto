@@ -11,7 +11,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 /**
  * 
- * @author 
+ * @author 张大川
  *
  */
 public abstract class BlowfishCoder {
@@ -20,7 +20,7 @@ public abstract class BlowfishCoder {
 	public static final String CIPHER_ALGORITHM = "Blowfish/ECB/PKCS5Padding";
 	public static byte[] initKey() throws NoSuchAlgorithmException {
 		KeyGenerator kg = KeyGenerator.getInstance(KEY_ALGORITHM);
-		kg.init(56*8);
+		kg.init(56*8);// 密钥长度从32 位到448 位可变，也就是说，最少4个比特，最多56个比特
 		SecretKey secretKey = kg.generateKey();
 		return secretKey.getEncoded();
 
