@@ -117,7 +117,7 @@ public abstract class RSACoder {
 	/**
 	 * 
 	 * 私钥加密
-	 * 
+	 *  数字签名
 	 * @param data
 	 * @param key
 	 * @return
@@ -138,7 +138,7 @@ public abstract class RSACoder {
 		PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(key);
 		KeyFactory factory = KeyFactory.getInstance(KEY_ALGORITHM);
 		PrivateKey key2 = factory.generatePrivate(keySpec);
-		System.out.println(factory.getAlgorithm());
+		//System.out.println(factory.getAlgorithm());
 		Cipher cipher = Cipher.getInstance(factory.getAlgorithm());
 		cipher.init(Cipher.ENCRYPT_MODE, key2);
 		return cipher.doFinal(data);
